@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_charge/app/design/btn.dart';
-import 'package:ez_charge/app/design/design.dart';
+import 'package:instant_app/design/btn.dart';
+import 'package:instant_app/design/design.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../app/app_page.dart';
 import 'package:http/http.dart' as http;
-import '../app/global_variables.dart' as globals;
+import 'package:instant_app/global_variables.dart' as globals;
+import 'package:instant_app/main.dart';
 
 class Charging extends StatelessWidget {
   String docRef;
@@ -34,12 +34,14 @@ class Charging extends StatelessWidget {
     Widget stopSessionBtn = TButton(
       text: "Stop Session",
       onPressed: () async {
+        Navigator.pop(context);
+        Navigator.of(context, rootNavigator: true).pop('dialog');
         FirebaseFirestore firestore = FirebaseFirestore.instance;
-        firestore.collection("chargingSession").doc(docRef).update({
+        await firestore.collection("chargingSession").doc(docRef).update({
           "stopTime": DateTime.now(),
         });
         //server sided function (see firebase cloud functions)
-        http.get('https://us-central1-ezcharge-22de2.cloudfunctions.net/sendMail?id=' + globals.user.uid.toString());
+        await http.get('https://us-central1-ezcharge-22de2.cloudfunctions.net/sendMail?id=' + globals.user.uid.toString());
         Fluttertoast.showToast(
             msg: "Your session has stopped",
             toastLength: Toast.LENGTH_SHORT,
@@ -48,8 +50,6 @@ class Charging extends StatelessWidget {
             backgroundColor: Colors.black,
             textColor: Colors.white,
             fontSize: 16.0);
-        Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AppPage()));
       },
       tStyle: theme.textTheme.headline3,
     );

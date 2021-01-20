@@ -76,7 +76,7 @@ class _QrCodeState extends State<Homepage> {
               columnSpacing: colWidth,
               columns: <DataColumn>[
                 DataColumn(
-                  label: Text('Datum',
+                  label: Text('\nDatum\n',
                       style: Theme.of(context).textTheme.subtitle1),
                 ),
                 DataColumn(

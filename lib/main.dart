@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:instant_app/charging.dart';
+
 import 'app_page.dart';
 import 'base.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,10 +47,7 @@ class _InstantApp extends State<MyApp> {
       theme: theme,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('EzCharge ', style: Theme
-              .of(context)
-              .textTheme
-              .bodyText1),
+          title: Text('EzCharge ', style: theme.textTheme.bodyText1),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 50.0,),
@@ -64,13 +63,12 @@ class _InstantApp extends State<MyApp> {
             child: Column(
               children: <Widget>[
                 Text('Charge your car',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 36.0),
+                    style: theme.textTheme.headline1,
                     textAlign: TextAlign.center),
                 Spacer(),
                 Text(
                     'If you push the button below you are paying for a charging session on pole: ' +
-                        poleId),
+                        poleId, style: theme.textTheme.bodyText1,),
                 ButtonTheme(child: buttonBottom(), minWidth: double.infinity,)
               ],
             ),
@@ -89,7 +87,7 @@ class buttonBottom extends StatelessWidget {
       child: Button(onPressed: () {
         Fluttertoast.showToast(msg: "You simulated that you have payed");
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AppPage()));
+            context, MaterialPageRoute(builder: (context) => Charging()));
       }, text: "Google Pay", tStyle: Theme.of(context).textTheme.button, color: Theme.of(context).buttonColor,),
     );
   }
