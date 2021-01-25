@@ -34,8 +34,6 @@ String validatePassword(String value) {
 }
 
 Future handleDynamicLinks(BuildContext context) async {
-  //final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
-
   FirebaseDynamicLinks.instance.onLink(
       onSuccess: (PendingDynamicLinkData dynamicLink) async {
         // handle link that has been retrieved
@@ -51,6 +49,8 @@ void _handleDeepLink(PendingDynamicLinkData data, BuildContext context) {
     print('_handleDeepLink | deeplink: $deepLink');
     var poleId = deepLink.toString().split("=")[1];
     globals.chargingStation = poleId;
+  }else{
+    print("deeplink is null");
   }
 }
 

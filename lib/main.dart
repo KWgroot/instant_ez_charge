@@ -35,13 +35,13 @@ class _InstantApp extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (poleId == "") {
-      handleDynamicLinks(context);
-      poleId = getChargingStation();
-      Timer(Duration(seconds: 3), () {
-        setState(() {});
+    handleDynamicLinks(context);
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        poleId = getChargingStation();
       });
-    }
+    });
+
     return MaterialApp(
       title: 'EZCharge',
       theme: theme,
